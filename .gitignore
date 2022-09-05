@@ -22,6 +22,7 @@ npm-debug.log*
 .tmp/
 .versions/
 .build/
+.serverless/
 coverage/
 dist/
 node_modules/
