@@ -2,6 +2,7 @@
 # http://git-scm.com/docs/gitignore
 
 *~
+*.gql
 *.sw[mnpcod]
 *.log
 *.tmp
@@ -31,5 +32,3 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
-
-*.gql
