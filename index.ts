@@ -6,13 +6,13 @@ import "reflect-metadata";
 import { buildSchema } from 'type-graphql';
 import { ItemsResolver } from './src/resolvers/Items';
 
-const isDeploy = !!process.env.NODE_ENV_DEPLOY;
+const emitSchemaFile = !!process.env.GENERATE_SCHEMA;
 const isProd = process.env.NODE_ENV === 'prod';
 
 async function bootstrap() {
   const schema = await buildSchema({
     resolvers: [ItemsResolver],
-    emitSchemaFile: !isDeploy,
+    emitSchemaFile,
   });
 
   return new ApolloServer({

@@ -164,7 +164,7 @@ const data: Items[] = [
   },
   id: faker.datatype.uuid(),
   publishDate: faker.date.recent(faker.datatype.number({ min: 1, max: 365 })),
-  price: String(faker.datatype.float({ min: 0, max: 0, precision: 0.001 })),
-}));
+  price: String(faker.datatype.float({ min: 0, max: 1, precision: 0.001 })),
+})).sort((a, b) => b.publishDate.getTime() - a.publishDate.getTime());
 
 export default data;

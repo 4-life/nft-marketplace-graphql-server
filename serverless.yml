@@ -10,6 +10,8 @@ provider:
   lambdaHashingVersion: 20201221
   memorySize: 512
   timeout: 6
+  environment:
+    STAGE: ${opt:stage}
 
 package:
   excludeDevDependencies: false

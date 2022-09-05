@@ -5,9 +5,9 @@
   "main": "handler.js",
   "scripts": {
     "build": "tsc",
-    "dev": "serverless invoke local -f graphql -p query.json",
-    "deploy-dev": "NODE_ENV=dev NODE_ENV_DEPLOY=true serverless deploy -s dev -r eu-central-1",
-    "deploy-prod": "NODE_ENV=prod NODE_ENV_DEPLOY=true serverless deploy -s production -r eu-central-1"
+    "dev": "GENERATE_SCHEMA=true serverless invoke local -f graphql -p query.json",
+    "deploy-dev": "NODE_ENV=dev serverless deploy -s dev -r eu-central-1",
+    "deploy-prod": "NODE_ENV=prod serverless deploy -s production -r eu-central-1"
   },
   "keywords": [],
   "author": "",
