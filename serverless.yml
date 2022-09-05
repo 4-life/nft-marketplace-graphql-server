@@ -1,0 +1,30 @@
+service: apollo-lambda
+
+plugins:
+  - serverless-plugin-typescript
+
+provider:
+  name: aws
+  profile: 4life
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  memorySize: 512
+  timeout: 6
+
+package:
+  excludeDevDependencies: false
+
+functions:
+  graphql:
+    handler: index.handler
+    name: apollo-lambda-${opt:stage}
+    description: Graphql API function for nft marketplace lambda.Digital
+    events:
+    - http:
+        path: /
+        method: post
+        cors: true
+    - http:
+        path: /
+        method: get
+        cors: true
