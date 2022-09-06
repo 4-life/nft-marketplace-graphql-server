@@ -1,4 +1,4 @@
-# The example of NFT marketplace GraphQL API [![Deploy status](https://github.com/4-life/nft-marketplace/actions/workflows/main.yml/badge.svg)](https://github.com/4-life/nft-marketplace/actions)
+# The example of NFT marketplace GraphQL API [![Deploy status](https://github.com/4-life/nft-marketplace-graphql-server/actions/workflows/main.yml/badge.svg)](https://github.com/4-life/nft-marketplace-graphql-server/actions)
 
 ## Used libraries
 
@@ -10,8 +10,15 @@
 ### `npm run dev`
 Runs local api requests from `query.json`
 
+### `npm run offline`
+Runs local API server on 3005 port
+
 ### `npm run deploy-dev`
 Deploy to development
 
-### `npm run build`
+### `npm run deploy-prod`
 Deploy to production
+
+## Front-end repo:
+
+https://github.com/4-life/nft-marketplace
