@@ -5,13 +5,14 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import "reflect-metadata";
 import { buildSchema } from 'type-graphql';
 import { ItemsResolver } from './src/resolvers/Items';
+import { StatusResolver } from './src/resolvers/Status';
 
 const emitSchemaFile = !!process.env.GENERATE_SCHEMA;
 const isProd = process.env.NODE_ENV === 'prod';
 
-async function bootstrap() {
+export async function bootstrap() {
   const schema = await buildSchema({
-    resolvers: [ItemsResolver],
+    resolvers: [ItemsResolver, StatusResolver],
     emitSchemaFile,
   });
 

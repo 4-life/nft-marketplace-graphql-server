@@ -2,6 +2,7 @@ service: apollo-lambda
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-offline
 
 provider:
   name: aws
@@ -11,15 +12,15 @@ provider:
   memorySize: 512
   timeout: 6
   environment:
-    STAGE: ${opt:stage}
+    STAGE: ${opt:stage, 'dev'}
 
 package:
-  excludeDevDependencies: false
+  excludeDevDependencies: true
 
 functions:
   graphql:
     handler: index.handler
-    name: apollo-lambda-${opt:stage}
+    name: apollo-lambda-${opt:stage, 'dev'}
     description: Graphql API function for nft marketplace lambda.Digital
     events:
     - http:
@@ -30,3 +31,8 @@ functions:
         path: /
         method: get
         cors: true
+
+custom:
+  serverless-offline:
+    httpPort: 3005
+    noPrependStageInUrl: true
