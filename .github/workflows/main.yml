@@ -81,5 +81,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
+      - name: Install serverless plugins
+        run: serverless plugin install -n serverless-plugin-typescript
+
       - name: Deploy prod
         run: npm run deploy-prod
