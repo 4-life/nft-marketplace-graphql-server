@@ -25,26 +25,29 @@ jobs:
   deploy-dev:
     needs: install
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Restore app build
+      - name: Use Node ${{ matrix.node-version }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
         uses: actions/cache@v3
         with:
-          path: ./build
-          key: app-build-${{ github.head_ref }}.${{ github.sha }}
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
 
-      - name: serverless deploy
+      - name: Install plugin and deploy
         uses: serverless/github-action@v3.1
+        with:
+          args: -c "serverless plugin install -n serverless-plugin-typescript && npm run deploy-dev"
         env:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - name: Install serverless plugins
-        run: serverless plugin install -n serverless-plugin-typescript
-
-      - name: Deploy dev
-        run: npm run deploy-dev
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
   tests:
     needs: deploy-dev
@@ -64,24 +67,26 @@ jobs:
   deploy-prod:
     needs: tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
     steps:
       - uses: actions/checkout@v3
-      - name: Restore app build
+      - name: Use Node ${{ matrix.node-version }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Restore node_modules
         uses: actions/cache@v3
         with:
-          path: ./build
-          key: app-build-${{ github.head_ref }}.${{ github.sha }}
+          path: ./node_modules
+          key: modules-${{ hashFiles('package-lock.json') }}
 
-
-      - name: serverless deploy
+      - name: Install plugin and deploy
         uses: serverless/github-action@v3.1
+        with:
+          args: -c "serverless plugin install -n serverless-plugin-typescript && npm run deploy-prod"
         env:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-central-1
-
-      - name: Install serverless plugins
-        run: serverless plugin install -n serverless-plugin-typescript
-
-      - name: Deploy prod
-        run: npm run deploy-prod
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
